@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATURAL SELECTION (2023)</title>
+    <title>jayden.ng</title>
     <style>
         @font-face {
             font-family: 'HelveticaBold';
@@ -90,5 +90,21 @@
     <div class="image-container">
         <img src="pics/finalalways.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
     </div>
+
+    <script>
+        function forceReflow() {
+            // Triggering a reflow by reading an element's offsetHeight or offsetWidth
+            const header = document.querySelector('.header-container');
+            const imageContainer = document.querySelector('.image-container');
+            
+            // Temporarily change a style, then revert it
+            header.style.visibility = 'hidden';
+            header.offsetHeight; // Trigger a reflow
+            header.style.visibility = 'visible';
+        }
+
+        // Event listener to handle resize and zoom events
+        window.addEventListener('resize', forceReflow);
+    </script>
 </body>
 </html>
