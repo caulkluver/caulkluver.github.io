@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Zoomable Full-Size Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATURAL SELECTION (2023)</title>
     <style>
         @font-face {
             font-family: 'HelveticaBold';
@@ -17,49 +17,78 @@
         
         body {
             margin: 0;
-            background-color: #08030A; /* Custom background color */
+            background-color: #08030A;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             height: 100vh;
-            overflow: auto; /* Allows scrolling when zoomed */
-            touch-action: pinch-zoom; /* Enables pinch-to-zoom on touch devices */
-            padding: 20px; /* Adjustable padding */
+            width: 100vw;
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+            padding: 0;
             box-sizing: border-box;
         }
         
-        .title {
-            font-family: 'HelveticaBold', sans-serif;
-            font-size: calc(1.5 * var(--text-scale, 16px));
-            color: white;
-            text-align: left;
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: var(--padding, 10px);
+            background-color: #08030A;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 10;
         }
         
-        .author {
-            font-family: 'HelveticaMedium', sans-serif;
-            font-size: calc(1.0 * var(--text-scale, 16px));
+        .header {
+            font-family: 'HelveticaBold', sans-serif;
+            font-size: min(4vw, 24px);
             color: white;
-            text-align: left;
-            width: 100%;
-            padding: var(--padding, 10px);
+            white-space: nowrap;
+            padding-left: 10px;
+        }
+        
+        .header span {
+            font-family: 'HelveticaMedium', sans-serif;
+            font-size: min(3vw, 16px);
+        }
+        
+        .image-container {
+            position: absolute;
+            top: calc(min(4vw, 24px) + 5px);
+            bottom: 0;
+            left: 0;
+            width: 300vw;
+            height: calc(100vh - min(4vw, 24px));
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         img {
+            height: 100%;
+            width: auto;
             max-width: none;
-            max-height: none;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            cursor: zoom-in;
         }
     </style>
 </head>
 <body>
-    <div class="title">NATURAL SELECTION (2023)</div>
-    <div class="author">Jayden Nguyen</div>
-    <img src="pics/finalalways.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
+    <div class="header-container">
+        <div class="header">NATURAL SELECTION (2023) <span>by Jayden Nguyen</span></div>
+    </div>
+    <div class="image-container">
+        <img src="pics/finalalways.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
+    </div>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.body.scrollLeft = ((document.body.scrollWidth - window.innerWidth) / 2);
+            }, 10);
+        };
+    </script>
 </body>
 </html>
