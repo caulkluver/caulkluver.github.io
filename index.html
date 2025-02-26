@@ -17,14 +17,14 @@
         
         body {
             margin: 0;
-            background-color: #08030A; /* Prevent scrolling on the body */
+            background-color: #08030A;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: flex-start;
             height: 100vh;
             width: 100vw;
-            overflow: hidden; /* Prevent scrolling on the body */
+            overflow: hidden;
             position: relative;
             padding: 0;
             box-sizing: border-box;
@@ -32,7 +32,7 @@
         
         .header-container {
             position: fixed;
-            top: 5px; /* Adjust this value to make the space slightly bigger */
+            top: 5px;
             left: 0;
             width: 100%;
             background-color: #08030A;
@@ -43,25 +43,22 @@
             z-index: 10;
         }
 
-        
         .header {
             font-family: 'HelveticaBold', sans-serif;
-            font-size: min(3.5vw, 26px); /* Slightly larger font size */
+            font-size: min(3.5vw, 26px);
             color: #F2EDEA;
             white-space: nowrap;
             padding-left: 10px;
-            letter-spacing: -1px; /* Slightly tighter letter spacing */
+            letter-spacing: -1px;
         }
         
         .header span {
             font-family: 'HelveticaMedium', sans-serif;
             color: #878282;
-            font-size: min(3.2vw, 18px); /* Slightly larger font size for the span */
-            letter-spacing: -0.5px; /* Slightly tighter letter spacing */
+            font-size: min(3.2vw, 18px);
+            letter-spacing: -0.5px;
         }
 
-        
-        /* This container allows scrolling */
         .image-container {
             position: absolute;
             top: calc(min(4vw, 24px) + 5px);
@@ -71,15 +68,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: auto; /* Allow horizontal scrolling */
-            overflow-y: hidden; /* Prevent vertical scrolling */
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
         img {
-            height: 100%; /* Fill the container's height */
-            width: auto; /* Maintain the aspect ratio */
+            height: 100%;
+            width: auto;
             display: block;
-            margin: 0 auto; /* Center the image horizontally */
+            margin: 0 auto;
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -88,23 +86,33 @@
         <div class="header">NATURAL SELECTION (2023) <span>by Jayden Nguyen</span></div>
     </div>
     <div class="image-container">
-        <img src="pics/finalalways.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
+        <img id="artwork" src="pics/finalalways_lowres.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
     </div>
 
     <script>
         function forceReflow() {
-            // Triggering a reflow by reading an element's offsetHeight or offsetWidth
             const header = document.querySelector('.header-container');
-            const imageContainer = document.querySelector('.image-container');
-            
-            // Temporarily change a style, then revert it
             header.style.visibility = 'hidden';
-            header.offsetHeight; // Trigger a reflow
+            header.offsetHeight;
             header.style.visibility = 'visible';
         }
 
-        // Event listener to handle resize and zoom events
+        function swapToHighRes() {
+            const img = document.getElementById('artwork');
+            const highResSrc = 'pics/finalalways.jpg';
+            
+            const highResImage = new Image();
+            highResImage.src = highResSrc;
+            highResImage.onload = function() {
+                img.src = highResSrc;
+                // setTimeout(() => {
+                //     img.src = highResSrc;
+                // }, 2000); // Switch to high-res after 2 seconds
+            };
+        }
+        
         window.addEventListener('resize', forceReflow);
+        swapToHighRes();
     </script>
 </body>
 </html>
