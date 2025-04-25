@@ -74,7 +74,7 @@ header li, header a {
 }
 
 header ul li {
-	margin-left: 1rem;
+	margin-left: 0.4rem;
 }
 
 ul {
@@ -154,9 +154,13 @@ a {
   color: #624c41; /* your custom color */
 }
 
-a::after {
+.socials a::after {
   content: ' ↗';
   font-family: ui-sans-serif, arial;
+}
+
+li a {
+	all: unset;
 }
 
 
@@ -215,6 +219,12 @@ a::after {
 
 .name.toggled:hover .long {
 	opacity: 0;
+}
+
+li.comming {
+	color: color(display-p3 0.2 0.161 0.141 / 0.468);
+	text-decoration-line: line-through;
+	
 }
 
 
