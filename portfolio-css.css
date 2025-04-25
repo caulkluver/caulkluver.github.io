@@ -50,7 +50,7 @@ body {
 }
 
 .placeholder-box {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 2.35 / 1;
   width: 100%;            /* or set a max-width */
   background-color: color(display-p3 0.373 0.302 0.263 / 0.207); /* change this to any color */     /* optional: round the corners */
 }
@@ -79,7 +79,13 @@ ul {
 
 .headline {
 	display: block;
+	transition: transform 200ms ease;
 	margin: auto 0 0 0;
+}
+
+.headline:hover {
+	transform:
+	translateY(-20%) ;
 }
 
 .header-divider {
@@ -113,7 +119,8 @@ div .double-spacer {
 }
 
 .socials {
-	font-size: 1.05rem;letter-spacing: 0.022em;
+	font-size: 1.05rem;letter-spacing: 0.01em;
+	line-height: 1.6rem;
 }
 
 a {
