@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang=en>
+	<head>
+		<meta name=generator content="Hugo 0.141.0">
+		<meta charset=utf-8>
+		<meta http-equiv=X-UA-Compatible content="IE=edge">
+		<meta name=viewport content="width=device-width,initial-scale=1">
+		<meta name=author content="Liste - https://izzy.fyi/">
+		<title>iz</title>
+		<meta name=description content="A minimal hugo theme focus on content">
+		<meta property="og:url" content="https://izzy.fyi/">
+		<meta property="og:site_name" content="iz">
+		<meta property="og:title" content="iz">
+		<meta property="og:description" content>
+		<meta property="og:locale" content="en_us">
+		<meta property="og:type" content="website">
+		<meta itemprop=name content="iz">
+		<meta itemprop=description content>
+		<meta itemprop=datePublished content="2025-04-09T00:00:00+00:00">
+		<meta itemprop=dateModified content="2025-04-09T00:00:00+00:00">
+		<meta itemprop=wordCount content="36">
+		<link rel=canonical href=https://izzy.fyi/>
+		<link rel=icon href=https://izzy.fyi//assets/favicon.ico>
+		<link rel=dns-prefetch href=https://www.google-analytics.com>
+		<link href=https://www.google-analytics.com rel=preconnect crossorigin>
+		<link rel=alternate type=application/atom+xml title=iz href=https://izzy.fyi//atom.xml>
+		<link rel=alternate type=application/json title=iz href=https://izzy.fyi//feed.json>
+		<link rel="shortcut icon" type=image/png href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+		<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Bricolage+Grotesque">
+		<style>
+			*,:after,:before {
+				box-sizing: border-box;
+				padding: 0;
+			}
+
+			body {
+				font: 1rem/1.5 bricolage grotesque,-apple-system,BlinkMacSystemFont,segoe ui,Helvetica,Arial,sans-serif;
+				text-rendering: optimizeLegibility;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				padding: 2rem;
+				background: #fffdfa;
+				color: #888888;
+			}
+
+			.skip-link {
+				position: absolute;
+				top: -40px;
+				left: 0;
+				background: #eee;
+				z-index: 100
+			}
+
+			.skip-link:focus {
+				top: 0
+			}
+
+			header {
+				line-height: 2;
+				padding-bottom: 1.5rem
+			}
+
+			.link {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				text-decoration: none
+			}
+
+			.time {
+				font-variant-numeric: tabular-nums;
+				white-space: nowrap
+			}
+
+			blockquote {
+				border-left: 5px solid #eee;
+				padding-left: 1rem;
+				margin: 0
+			}
+
+			a,a:visited {
+				color: inherit
+			}
+
+			a:hover,a.heading-link {
+				text-decoration: none
+			}
+
+			pre {
+				padding: .5rem;
+				overflow: auto;
+				overflow-x: scroll;
+				overflow-wrap: normal
+			}
+
+			code,pre {
+				font-family: San Francisco Mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;
+				font-size: normal;
+				font-size: small;
+				background: #eee
+			}
+
+			code {
+				margin: .1rem;
+				border: none
+			}
+
+			ul {
+				list-style-type: square
+			}
+
+			ul,ol {
+				padding-left: 1.2rem
+			}
+
+			.list {
+				line-height: 2;
+				list-style-type: none;
+				padding-left: 0
+			}
+
+			.list li {
+				padding-bottom: .1rem
+			}
+
+			.meta {
+				color: #777
+			}
+
+			.content {
+				max-width: 40ch;
+				margin: 0 auto
+			}
+
+			header {
+				line-height: 2;
+				display: flex;
+				justify-content: space-between;
+				padding-bottom: 1rem
+			}
+
+			header a {
+				text-decoration: none
+			}
+
+			header ul {
+				list-style-type: none;
+				padding: 0
+			}
+
+			header li,header a {
+				display: inline
+			}
+
+			h2.post {
+				padding-top: .5rem
+			}
+
+			header ul a:first-child {
+				padding-left: 1rem
+			}
+
+			.nav {
+				height: 1px;
+				background: #000;
+				content: '';
+				max-width: 10%
+			}
+
+			.list li {
+				display: flex;
+				align-items: baseline
+			}
+
+			.list li time {
+				flex: initial
+			}
+
+			.hr-list {
+				margin-top: 0;
+				margin-bottom: 0;
+				margin-right: .5rem;
+				margin-left: .5rem;
+				height: 1px;
+				border: 0;
+				border-bottom: 1px dotted #ccc;
+				flex: 1 0 1rem
+			}
+
+			.m,hr {
+				border: 0;
+				margin: 3rem 0
+			}
+
+			img {
+				max-width: 100%;
+				height: auto
+			}
+
+			.post-date {
+				margin: 5% 0
+			}
+
+			.index-date {
+				color: #9a9a9a
+			}
+
+			.animate-blink {
+				animation: opacity 1s infinite;
+				opacity: 1
+			}
+
+			@keyframes opacity {
+				0% {
+					opacity: 1
+				}
+
+				50% {
+					opacity: .5
+				}
+
+				100% {
+					opacity: 0
+				}
+			}
+
+			.tags {
+				display: flex;
+				justify-content: space-between
+			}
+
+			.tags ul {
+				padding: 0;
+				margin: 0
+			}
+
+			.tags li {
+				display: inline
+			}
+
+			.avatar {
+				height: 120px;
+				width: 120px;
+				position: relative;
+				margin: -10px 0 0 15px;
+				float: right;
+				border-radius: 50%
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse
+			}
+
+			th,td {
+				border: 1px solid #ddd;
+				text-align: left;
+				padding: 8px
+			}
+
+			th {
+				background-color: green;
+			}
+		</style>
+		<script type=application/ld+json>
+			{
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "iz",
+				"url": "https:\/\/izzy.fyi\/",
+				"description": "A minimal hugo theme focus on content",
+				"thumbnailUrl": "https:\/\/izzy.fyi\/assets\/favicon.ico",
+				"license": ""
+			}</script>
+	</head>
+	
+	
+	
+	
+<body>
+		<a class=skip-link href=#main>Skip to main</a>
+		<main id=main>
+			<div class=content>
+				<header>
+					<p style=padding:0;margin:0>
+						<a href=https://izzy.fyi/>
+						<b>iz</b>
+						<span class="text-stone-500 animate-blink">▮</span>
+</a></p>
+<ul style=padding:0;margin:0>
+	<li>
+		<a href=/posts/>
+		<span>Posts</span>
+</a>
+<li>
+	<a href=/about/>
+	<span>About</span>
+</a></li></ul></header><hr class=hr-list style=padding:0;margin:0>
+<p>
+	<svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+		<g clip-path="url(#clip0_105_300)">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M188.941 1e2C192.769 1e2 196.477 99.4861 2e2 98.5234 197.199 97.9327 194.295 97.622 191.319 97.622H141.855C133.685 97.622 126.061 95.2811 119.619 91.2334 121.027 82.9896 124.913 75.0866 131.277 68.7229l31.614-31.6135C165.598 34.4024 167.856 31.4169 169.667 28.2452 167.268 29.8079 164.995 31.6416 162.891 33.7463L127.914 68.7229C122.137 74.4999 115.091 78.2351 107.674 79.9285 102.84 73.1033 1e2 64.7671 1e2 55.7675V11.0593C1e2 7.23107 99.4861 3.5229 98.5234.0 97.9327 2.80071 97.622 5.70466 97.622 8.68118V58.1456C97.622 66.3155 95.2811 73.9388 91.2335 80.3812 82.9897 78.9727 75.0866 75.0865 68.7229 68.7228L37.1094 37.1094c-2.707-2.707-5.6925-4.9657-8.8642-6.776 1.5627 2.3981 3.3964 4.6713 5.5011 6.776L68.7229 72.086C74.4999 77.8631 78.2352 84.9088 79.9285 92.3263 73.1033 97.1596 64.7671 1e2 55.7675 1e2H11.0593C7.23105 1e2 3.52289 100.514.0 101.477 2.80073 102.067 5.70469 102.378 8.68122 102.378H58.1456c8.17.0 15.7932 2.34099999999999 22.2356 6.389C78.9727 117.01 75.0866 124.913 68.7229 131.277L37.1094 162.891C34.4025 165.598 32.1438 168.583 30.3335 171.755 32.7316 170.192 35.0047 168.358 37.1094 166.254L72.086 131.277C77.863 125.5 84.9088 121.765 92.3263 120.071 97.1596 126.897 1e2 135.233 1e2 144.233v44.708C1e2 192.769 100.514 196.477 101.477 2e2 102.067 197.199 102.378 194.295 102.378 191.319V141.854C102.378 133.684 104.719 126.061 108.767 119.619 117.01 121.027 124.913 124.913 131.277 131.277l31.614 31.614C165.598 165.598 168.583 167.856 171.755 169.667 170.192 167.268 168.358 164.995 166.254 162.891l-34.977-34.977C125.5 122.137 121.765 115.091 120.072 107.674 126.897 102.84 135.233 1e2 144.233 1e2h44.708z" fill="url(#paint0_linear_105_300)"/>
+		</g>
+		<defs>
+			<linearGradient id="paint0_linear_105_300" x1="100" y1="0" x2="100" y2="200" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#093"/>
+				<stop offset="1" stop-color="#f8fbfe"/>
+			</linearGradient>
+			<clipPath id="clip0_105_300">
+				<rect width="200" height="200" fill="#fff"/>
+			</clipPath>
+		</defs>
+	</svg>
+</p>
+<p>I&rsquo;m an creative designer and artist. In my free time, I like doing ceramics & playing Splatoon 3.</p>
+<p>I help organizations understand how their strategy emerges, interrogate their processes, and develop the right conditions for intentions to align with outcomes.</p>
+<h1>Latest Post</h1>
+<section>
+	<p>
+		<time class="g time" datetime=2025-04-09>2025-04-09</time>
+		&nbsp;<a href=https://izzy.fyi/posts/mood-ring/>Mood Ring</a>
+	<p>
+	<p>
+		<time class="g time" datetime=2025-01-01>2025-01-01</time>
+		&nbsp;<a href=https://izzy.fyi/posts/values/>Between Belief and Values</a>
+	<p>
+</section>
+</div>
+</main>
+</body>
+</html>
