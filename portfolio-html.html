@@ -28,9 +28,16 @@ FRONTEND
 	
 	<header>
 		
-		<div class="headline"><p>
+		
+		<div class="headline">
+		<p class="name" tabindex="0">
+		  <span class="short">jayden.ng</span>
+		  <span class="long">jayden nguyen</span>
+		</p>
+		</div>
+		<!-- <div class="headline"><p>
 			jayden.ng
-		</p></div>
+		</p></div> -->
 		
 		
 		<ul>
@@ -64,31 +71,14 @@ FRONTEND
 		Threads </a><br />		
 	</p>
 </div>
-</main></body>
+</main>
+
+<script>
+const nameEl = document.querySelector('.name');
+nameEl.addEventListener('click', () => {
+  nameEl.classList.toggle('toggled');
+});
+</script>
+
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

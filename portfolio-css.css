@@ -32,13 +32,14 @@ LINKED TO portfolio-html.html
 body {
 	font: 1rem/1.5 ui-sans-serif, 'Rema', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4;
-	padding: 2rem; /* padding for a MINIMUM column view */
+	padding: 2.5rem; /* padding for a MINIMUM column view */
 	color: #352923;
 	background: #f5f1eb;
 }
 
 .content {
-	max-width: 50ch; /* keeps the column even when view is mostly landscape*/
+	max-width: 40ch;
+	min-width: 235px; /* keeps the column even when view is mostly landscape*/
 	margin: 0 auto;  /* using CSS shorthand here, margin: [top] [right] [bottom] [left]; top -> 0, right & left -> auto, botton -> inferred to be 0*/
 }
 
@@ -52,7 +53,8 @@ body {
 .placeholder-box {
   aspect-ratio: 2.35 / 1;
   width: 100%;            /* or set a max-width */
-  background-color: color(display-p3 0.373 0.302 0.263 / 0.207); /* change this to any color */     /* optional: round the corners */
+  background-color: color(display-p3 0.373 0.302 0.263 / 0.207); 
+  border-radius: 4px;
 }
 
 
@@ -79,14 +81,16 @@ ul {
 
 .headline {
 	display: block;
-	transition: transform 200ms ease;
 	margin: auto 0 0 0;
+	
+	position: relative;
+	display: inline-block; /* or flex, if you’re aligning multiple items */
 }
 
-.headline:hover {
+/* .headline:hover {
 	transform:
 	translateY(-20%) ;
-}
+} */
 
 .header-divider {
   height: 0.125rem; 
@@ -134,3 +138,84 @@ a::after {
   content: ' ↗';
   font-family: ui-sans-serif, arial;
 }
+
+
+
+
+
+
+
+
+
+
+
+.name {
+	display: grid;
+	place-items: start;
+	position: relative;
+}
+
+
+.name span {
+	grid-area: 1 / 1;
+	transition: transform 0.4s ease, opacity 0.0s ease;
+}
+
+.name .short {
+  opacity: 1;
+  z-index: 2;
+}
+
+.name .long {
+  opacity: 0;
+  z-index: 1;
+}
+
+.name:hover:not(.toggled) .short {
+	opacity: 0;
+}
+
+.name:hover:not(.toggled) .long {
+	opacity: 1;
+	background: color(display-p3 0.835 0.812 0.788 / 0.636);
+}
+
+.name.toggled .short {
+	opacity: 0;
+}
+
+.name.toggled .long {
+	opacity: 1;
+}
+
+.name.toggled:hover .short {
+	opacity: 1;
+	background: color(display-p3 0.835 0.812 0.788 / 0.636);
+}
+
+.name.toggled:hover .long {
+	opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
