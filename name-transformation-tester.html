@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Jayden Name Animation Final Final Final</title>
+  <title>Jayden Name Animation – True Final</title>
   <style>
 	body {
 	  background: #f5f1eb;
-	  font-family: ui-sans-serif, -apple-system, 'Times New Roman', BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	  font-family: ui-sans-serif, -apple-system, 'Helvetica Neue', BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 	  padding: 2rem;
 	  color: #352923;
 	  user-select: none;
@@ -16,12 +16,12 @@
 	  display: inline-flex;
 	  align-items: center;
 	  gap: 0;
-	  font-size: 1rem;
+	  font-size: 2rem;
+	  font-weight: bold;
 	  position: relative;
 	  cursor: pointer;
 	  user-select: none;
 	  transition: transform 0.2s ease, background-color 0.3s ease;
-	  font-weight: bold;
 	}
 
 	.name span {
@@ -73,36 +73,36 @@
 	  margin-left: -0.05em;
 	}
 
-	/* HOVER PREVIEW (ONLY if not frozen) */
-	.name:not(.frozen):hover {
+	/* HOVER PREVIEW (ONLY if allow-hover exists) */
+	html.allow-hover .name:not(.frozen):hover {
 	  transform: scale(1.05);
 	}
-	.name:not(.frozen):hover::after {
+	html.allow-hover .name:not(.frozen):hover::after {
 	  border-color: rgba(53, 41, 35, 0.5);
 	  background-color: rgba(131, 121, 110, 0.15);
 	}
 
-	.name:not(.frozen).compact:hover .dot {
+	html.allow-hover .name:not(.frozen).compact:hover .dot {
 	  opacity: 0;
 	}
-	.name:not(.frozen).compact:hover .ng {
+	html.allow-hover .name:not(.frozen).compact:hover .ng {
 	  transform: translateX(0.1em);
 	  margin-right: -0.1em;
 	}
-	.name:not(.frozen).compact:hover .uyen {
+	html.allow-hover .name:not(.frozen).compact:hover .uyen {
 	  opacity: 1;
 	  transform: translateX(0.25em);
 	  margin-left: -0.05em;
 	}
 
-	.name:not(.frozen).expanded:hover .dot {
+	html.allow-hover .name:not(.frozen).expanded:hover .dot {
 	  opacity: 1;
 	}
-	.name:not(.frozen).expanded:hover .ng {
+	html.allow-hover .name:not(.frozen).expanded:hover .ng {
 	  transform: translateX(0);
 	  margin-right: 0;
 	}
-	.name:not(.frozen).expanded:hover .uyen {
+	html.allow-hover .name:not(.frozen).expanded:hover .uyen {
 	  opacity: 0;
 	  transform: translateX(0);
 	  margin-left: 0;
@@ -125,17 +125,17 @@
 	}
 	@keyframes clickScale {
 	  0% { transform: scale(1); }
-	  50% { transform: scale(0.9); }
+	  50% { transform: scale(0.95); }
 	  100% { transform: scale(1); }
 	}
 
 	/* Single Opacity Pulse */
 	.name.pulse {
-	  animation: pulseOnce 0.15s ease-in;
+	  animation: pulseOnce 0.2s ease;
 	}
 	@keyframes pulseOnce {
-	  0% { opacity: 1; }
-	  50% { opacity: 0.7; transform: scale(0.97);}
+	  0% { opacity: 1;}
+	  50% { opacity: 0.8; transform: scale(0.96);}
 	  100% { opacity: 1; }
 	}
   </style>
@@ -143,7 +143,6 @@
 <body>
 
 <h1>Hover & Click the Name Below 👇</h1>
-<h2>or <a style="all: unset; color: color(display-p3 0.523 0.437 0.393);" href="portfolio-html.html">Go Back</a></h2>
 
 <p class="name compact" tabindex="0">
   <span class="first">jayden</span>
@@ -155,19 +154,24 @@
 <script>
 const nameEl = document.querySelector('.name');
 
-// Detect input type
+// Detect pointer type
 const isFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-// For tracking freeze state only if fine pointer
+// Dynamically control whether we allow hover styles
+if (isFinePointer) {
+  document.documentElement.classList.add('allow-hover');
+} else {
+  document.documentElement.classList.remove('allow-hover');
+}
+
 let hasJustFrozen = false;
 
 nameEl.addEventListener('mouseenter', () => {
-  // Nothing extra; hover previews unless frozen
+  // No special hover logic here
 });
 
 nameEl.addEventListener('mouseleave', () => {
   if (isFinePointer) {
-	// Only reset frozen on desktop
 	nameEl.classList.remove('frozen');
 	hasJustFrozen = false;
   }
@@ -175,7 +179,6 @@ nameEl.addEventListener('mouseleave', () => {
 
 nameEl.addEventListener('click', () => {
   if (isFinePointer) {
-	// DESKTOP EXPERIENCE
 	if (!nameEl.classList.contains('frozen')) {
 	  nameEl.classList.add('frozen');
 
@@ -194,7 +197,7 @@ nameEl.addEventListener('click', () => {
 
 	  hasJustFrozen = true;
 	} else {
-	  // Frozen, pulse fun
+	  // Frozen click triggers pulse fun
 	  if (hasJustFrozen) {
 		nameEl.classList.add('pulse');
 		nameEl.addEventListener('animationend', () => {
@@ -203,8 +206,7 @@ nameEl.addEventListener('click', () => {
 	  }
 	}
   } else {
-	// TOUCH EXPERIENCE (mobile/tablet)
-	// No freezing: just toggle immediately every tap
+	// Touch mode: no frozen logic, just toggle
 	if (nameEl.classList.contains('compact')) {
 	  nameEl.classList.remove('compact');
 	  nameEl.classList.add('expanded');
@@ -213,7 +215,6 @@ nameEl.addEventListener('click', () => {
 	  nameEl.classList.add('compact');
 	}
 
-	// Tap bounce
 	nameEl.classList.add('clicked');
 	nameEl.addEventListener('animationend', () => {
 	  nameEl.classList.remove('clicked');
@@ -221,7 +222,6 @@ nameEl.addEventListener('click', () => {
   }
 });
 </script>
-
 
 </body>
 </html>
