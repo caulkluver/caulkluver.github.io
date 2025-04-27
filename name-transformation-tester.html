@@ -154,23 +154,57 @@
 
 <script>
 const nameEl = document.querySelector('.name');
-let hasJustFrozen = false; // Track if we're in post-click frozen state
+
+// Detect input type
+const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+// For tracking freeze state only if fine pointer
+let hasJustFrozen = false;
 
 nameEl.addEventListener('mouseenter', () => {
-  // No special hover behavior
+  // Nothing extra; hover previews unless frozen
 });
 
 nameEl.addEventListener('mouseleave', () => {
-  // Reset when leaving the element
-  nameEl.classList.remove('frozen');
-  hasJustFrozen = false; // allow clicks to toggle states again
+  if (isFinePointer) {
+	// Only reset frozen on desktop
+	nameEl.classList.remove('frozen');
+	hasJustFrozen = false;
+  }
 });
 
 nameEl.addEventListener('click', () => {
-  if (!nameEl.classList.contains('frozen')) {
-	// First click: Freeze after swap
-	nameEl.classList.add('frozen');
+  if (isFinePointer) {
+	// DESKTOP EXPERIENCE
+	if (!nameEl.classList.contains('frozen')) {
+	  nameEl.classList.add('frozen');
 
+	  if (nameEl.classList.contains('compact')) {
+		nameEl.classList.remove('compact');
+		nameEl.classList.add('expanded');
+	  } else {
+		nameEl.classList.remove('expanded');
+		nameEl.classList.add('compact');
+	  }
+
+	  nameEl.classList.add('clicked');
+	  nameEl.addEventListener('animationend', () => {
+		nameEl.classList.remove('clicked');
+	  }, { once: true });
+
+	  hasJustFrozen = true;
+	} else {
+	  // Frozen, pulse fun
+	  if (hasJustFrozen) {
+		nameEl.classList.add('pulse');
+		nameEl.addEventListener('animationend', () => {
+		  nameEl.classList.remove('pulse');
+		}, { once: true });
+	  }
+	}
+  } else {
+	// TOUCH EXPERIENCE (mobile/tablet)
+	// No freezing: just toggle immediately every tap
 	if (nameEl.classList.contains('compact')) {
 	  nameEl.classList.remove('compact');
 	  nameEl.classList.add('expanded');
@@ -179,24 +213,15 @@ nameEl.addEventListener('click', () => {
 	  nameEl.classList.add('compact');
 	}
 
-	// Bounce click animation
+	// Tap bounce
 	nameEl.classList.add('clicked');
 	nameEl.addEventListener('animationend', () => {
 	  nameEl.classList.remove('clicked');
 	}, { once: true });
-
-	hasJustFrozen = true; // now second click = pulse
-  } else {
-	// Already frozen, clicking triggers the single pulse
-	if (hasJustFrozen) {
-	  nameEl.classList.add('pulse');
-	  nameEl.addEventListener('animationend', () => {
-		nameEl.classList.remove('pulse');
-	  }, { once: true });
-	}
   }
 });
 </script>
+
 
 </body>
 </html>

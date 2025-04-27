@@ -1,0 +1,96 @@
+<!-- 
+BACKEND
+- creating column container for content
+
+FRONTEND
+- big banner with me
+- have tab bar with
+	- Posts?? / Blog
+	- About 
+- footer bar should have socials + contact me
+ -->
+ 
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<link rel="stylesheet" href="portfolio-css.css" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>portfolio exploration april2025</title>
+</head>
+
+<body><main> <!-- main is used as a structural tag, in this case it is storing EVERYTHING inside of the <body> tag -->
+<div class="content">
+	
+	<!-- <img src="pics/PH_16by9.jpg" alt="placeholder image" class="b4-header-img" /> -->
+	
+	<div class="placeholder-box"></div>
+	
+	<header>
+		
+		
+		<div class="headline">
+		<p class="name" tabindex="0">
+		  <span class="short">jayden.ng</span>
+		  <span class="long">jayden nguyen</span>
+		</p>
+		</div>
+		<!-- <div class="headline"><p>
+			jayden.ng
+		</p></div> -->
+		
+		
+		<ul>
+			<li class="comming">About</li>
+			<li class="comming">Blog</li>
+			<li><a href="/">Go Back</a></li>
+		</ul>
+	</header>
+	
+	<div class=header-divider></div>
+	
+	<div class="body-text">
+	<p>Hello,</p>
+	<p>
+	It's time to write some text here to test how this site renders the text. There are so many specificities to explore here. The initial ones I think of are font & color but what about line spacing, line breaks, letter spacing, word spacing? Or even justification? Acomplishing full-justified readable text can be quite complicated in publishing, let alone in a site that is mutable and sensitive.
+	</p>
+	<p>
+	This is all I currently have for my little secret portfolio. One day, I would like this to have all of my art & software projects in a sort of card view. The special part will be its responsfulness and control schemes over a variety of devices (hopefully).
+	</p>
+	</div>
+	
+	<span class="full-spacer"></span>
+	
+	<p class="socials">
+		<a href="https://www.are.na/jayden-nguyen/">Are.na</a><br />
+		<a href="https://www.instagram.com/desireistherootofallsuffering/">Instagram</a><br />
+		<a href="https://bsky.app/profile/jayden.ng">
+		Bluesky </a><br />
+		<a href="https://www.threads.com/@desireistherootofallsuffering">
+		Threads </a><br />	
+		<a href="/name-transformation-tester.html">
+		Testing Name Transformation? </a>	
+	</p>
+</div>
+</main>
+
+<script>
+const nameEl = document.querySelector('.name');
+let clicked = false;
+
+nameEl.addEventListener('click', () => {
+  nameEl.classList.toggle('toggled');
+  clicked = true;
+  nameEl.classList.add('no-hover');
+});
+
+nameEl.addEventListener('mouseleave', () => {
+  if (clicked) {
+	clicked = false;
+	nameEl.classList.remove('no-hover');
+  }
+});
+</script>
+
+</body>
+</html>
