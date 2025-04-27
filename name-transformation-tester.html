@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jayden Name Animation Final Final Final</title>
+  <style>
+	body {
+	  background: #f5f1eb;
+	  font-family: ui-sans-serif, -apple-system, 'Times New Roman', BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	  padding: 2rem;
+	  color: #352923;
+	  user-select: none;
+	}
+
+	.name {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0;
+	  font-size: 1rem;
+	  position: relative;
+	  cursor: pointer;
+	  user-select: none;
+	  transition: transform 0.2s ease, background-color 0.3s ease;
+	  font-weight: bold;
+	}
+
+	.name span {
+	  display: inline-block;
+	  transition: all 0.3s ease;
+	  position: relative;
+	  z-index: 2;
+	}
+
+	.name::after {
+	  content: "";
+	  position: absolute;
+	  top: -6px;
+	  left: -6px;
+	  right: -6px;
+	  bottom: -6px;
+	  border: 2px solid transparent;
+	  border-radius: 6px;
+	  pointer-events: none;
+	  transition: border-color 0.3s ease, background-color 0.3s ease;
+	  background-color: transparent;
+	  z-index: 1;
+	}
+
+	/* BASE STATES */
+	.compact .dot {
+	  opacity: 1;
+	}
+	.compact .ng {
+	  transform: translateX(0);
+	  margin-right: 0;
+	}
+	.compact .uyen {
+	  opacity: 0;
+	  transform: translateX(0);
+	  margin-left: 0;
+	}
+
+	.expanded .dot {
+	  opacity: 0;
+	}
+	.expanded .ng {
+	  transform: translateX(0.1em);
+	  margin-right: -0.1em;
+	}
+	.expanded .uyen {
+	  opacity: 1;
+	  transform: translateX(0.25em);
+	  margin-left: -0.05em;
+	}
+
+	/* HOVER PREVIEW (ONLY if not frozen) */
+	.name:not(.frozen):hover {
+	  transform: scale(1.05);
+	}
+	.name:not(.frozen):hover::after {
+	  border-color: rgba(53, 41, 35, 0.5);
+	  background-color: rgba(131, 121, 110, 0.15);
+	}
+
+	.name:not(.frozen).compact:hover .dot {
+	  opacity: 0;
+	}
+	.name:not(.frozen).compact:hover .ng {
+	  transform: translateX(0.1em);
+	  margin-right: -0.1em;
+	}
+	.name:not(.frozen).compact:hover .uyen {
+	  opacity: 1;
+	  transform: translateX(0.25em);
+	  margin-left: -0.05em;
+	}
+
+	.name:not(.frozen).expanded:hover .dot {
+	  opacity: 1;
+	}
+	.name:not(.frozen).expanded:hover .ng {
+	  transform: translateX(0);
+	  margin-right: 0;
+	}
+	.name:not(.frozen).expanded:hover .uyen {
+	  opacity: 0;
+	  transform: translateX(0);
+	  margin-left: 0;
+	}
+
+	/* FROZEN AFTER CLICK */
+	.name.frozen {
+	  transform: scale(1);
+	  cursor: default;
+	}
+
+	.name.frozen::after {
+	  border-color: transparent;
+	  background-color: transparent;
+	}
+
+	/* CLICK BOUNCE */
+	.name.clicked {
+	  animation: clickScale 0.2s ease;
+	}
+	@keyframes clickScale {
+	  0% { transform: scale(1); }
+	  50% { transform: scale(0.9); }
+	  100% { transform: scale(1); }
+	}
+
+	/* Single Opacity Pulse */
+	.name.pulse {
+	  animation: pulseOnce 0.15s ease-in;
+	}
+	@keyframes pulseOnce {
+	  0% { opacity: 1; }
+	  50% { opacity: 0.7; transform: scale(0.97);}
+	  100% { opacity: 1; }
+	}
+  </style>
+</head>
+<body>
+
+<h1>Hover & Click the Name Below 👇</h1>
+<h2>or <a style="all: unset; color: color(display-p3 0.523 0.437 0.393);" href="portfolio-html.html">Go Back</a></h2>
+
+<p class="name compact" tabindex="0">
+  <span class="first">jayden</span>
+  <span class="dot">.</span>
+  <span class="ng">ng</span>
+  <span class="uyen">uyen</span>
+</p>
+
+<script>
+const nameEl = document.querySelector('.name');
+let hasJustFrozen = false; // Track if we're in post-click frozen state
+
+nameEl.addEventListener('mouseenter', () => {
+  // No special hover behavior
+});
+
+nameEl.addEventListener('mouseleave', () => {
+  // Reset when leaving the element
+  nameEl.classList.remove('frozen');
+  hasJustFrozen = false; // allow clicks to toggle states again
+});
+
+nameEl.addEventListener('click', () => {
+  if (!nameEl.classList.contains('frozen')) {
+	// First click: Freeze after swap
+	nameEl.classList.add('frozen');
+
+	if (nameEl.classList.contains('compact')) {
+	  nameEl.classList.remove('compact');
+	  nameEl.classList.add('expanded');
+	} else {
+	  nameEl.classList.remove('expanded');
+	  nameEl.classList.add('compact');
+	}
+
+	// Bounce click animation
+	nameEl.classList.add('clicked');
+	nameEl.addEventListener('animationend', () => {
+	  nameEl.classList.remove('clicked');
+	}, { once: true });
+
+	hasJustFrozen = true; // now second click = pulse
+  } else {
+	// Already frozen, clicking triggers the single pulse
+	if (hasJustFrozen) {
+	  nameEl.classList.add('pulse');
+	  nameEl.addEventListener('animationend', () => {
+		nameEl.classList.remove('pulse');
+	  }, { once: true });
+	}
+  }
+});
+</script>
+
+</body>
+</html>

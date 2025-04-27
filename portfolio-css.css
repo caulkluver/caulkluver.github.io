@@ -177,12 +177,31 @@ li a {
 	display: grid;
 	place-items: start;
 	position: relative;
+	user-select: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+.name:hover:not(.toggled):not(.no-hover) .long::after, .name.toggled:hover:not(.no-hover) .short::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 0.15em solid color(display-p3 0.835 0.812 0.788 / 0.636); /* starts invisible */
+  border-radius: 2px; /* ✅ you get curves! */
+  pointer-events: none; /* makes sure clicks pass through */
 }
 
 
 .name span {
 	grid-area: 1 / 1;
-	transition: transform 0.4s ease, opacity 0.0s ease;
+	transition: transform 0.1s ease, opacity 0.0s ease, scale 0.2s ease;
+	transform-origin: left center;
+	position: relative;
+	z-index: 2;
 }
 
 .name .short {
@@ -195,14 +214,7 @@ li a {
   z-index: 1;
 }
 
-.name:hover:not(.toggled) .short {
-	opacity: 0;
-}
 
-.name:hover:not(.toggled) .long {
-	opacity: 1;
-	background: color(display-p3 0.835 0.812 0.788 / 0.636);
-}
 
 .name.toggled .short {
 	opacity: 0;
@@ -212,7 +224,41 @@ li a {
 	opacity: 1;
 }
 
-.name.toggled:hover .short {
+.name:hover:not(.toggled):not(.no-hover) .short {
+  opacity: 0;
+  transform: scale(1.14);
+}
+
+.name:hover:not(.toggled):not(.no-hover) .long {
+  opacity: 1;
+  transform: scale(1.14);
+  background: color(display-p3 0.835 0.812 0.788 / 0.636);
+}
+
+.name.toggled.no-hover, .name.no-hover {
+	cursor: default;
+}
+
+.name.toggled:hover:not(.no-hover) .short {
+  opacity: 1;
+  background: color(display-p3 0.835 0.812 0.788 / 0.636);
+  transform: scale(1.14);
+}
+
+.name.toggled:hover:not(.no-hover) .long {
+  opacity: 0;
+  transform: scale(1.14);
+}
+
+
+
+
+
+
+
+
+
+/* .name.toggled:hover .short {
 	opacity: 1;
 	background: color(display-p3 0.835 0.812 0.788 / 0.636);
 }
@@ -220,6 +266,16 @@ li a {
 .name.toggled:hover .long {
 	opacity: 0;
 }
+
+.name:hover:not(.toggled) .short {
+	opacity: 0;
+}
+
+.name:hover:not(.toggled) .long {
+	opacity: 1;
+	background: color(display-p3 0.835 0.812 0.788 / 0.636);
+} */
+
 
 li.comming {
 	color: color(display-p3 0.2 0.161 0.141 / 0.468);

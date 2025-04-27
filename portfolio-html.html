@@ -67,15 +67,28 @@ FRONTEND
 		<a href="https://bsky.app/profile/jayden.ng">
 		Bluesky </a><br />
 		<a href="https://www.threads.com/@desireistherootofallsuffering">
-		Threads </a><br />		
+		Threads </a><br />	
+		<a href="/name-transformation-tester.html">
+		Testing Name Transformation? </a>	
 	</p>
 </div>
 </main>
 
 <script>
 const nameEl = document.querySelector('.name');
+let clicked = false;
+
 nameEl.addEventListener('click', () => {
   nameEl.classList.toggle('toggled');
+  clicked = true;
+  nameEl.classList.add('no-hover');
+});
+
+nameEl.addEventListener('mouseleave', () => {
+  if (clicked) {
+	clicked = false;
+	nameEl.classList.remove('no-hover');
+  }
 });
 </script>
 
