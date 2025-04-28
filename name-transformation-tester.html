@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Jayden Name Animation – True Final</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>TESTING NAMES</title>
   <style>
 	body {
 	  background: #f5f1eb;
@@ -11,213 +12,187 @@
 	  color: #352923;
 	  user-select: none;
 	}
-
+	.wrapper {
+	  display: inline-block;
+	  position: relative;
+	  transform: translateX(-3.8%);
+	}
+	.border-fake {
+	  position: absolute;
+	  top: 0; left: 0;
+	  box-sizing: border-box;
+	  border: 2px solid #e4e0d9;
+	  border-radius: 2px;
+	  background-color: #E4E0D9;
+	  pointer-events: none;
+	  opacity: 0;
+	  transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease, transform 0.2s ease;
+	  transform-origin: left center;
+	}
+	.border-fake.active {
+	  opacity: 1;
+	  transform: scale(1.3);
+	}
 	.name {
+	  margin: 0;
 	  display: inline-flex;
 	  align-items: center;
-	  gap: 0;
-	  font-size: 2rem;
+	  font-size: 1rem;
 	  font-weight: bold;
-	  position: relative;
+	  padding: 0.2em 0.4em;
+	  white-space: nowrap;
 	  cursor: pointer;
-	  user-select: none;
-	  transition: transform 0.2s ease, background-color 0.3s ease;
+	  transition: transform 0.2s ease;
+	  transform-origin: left center;
 	}
-
 	.name span {
 	  display: inline-block;
 	  transition: all 0.3s ease;
 	  position: relative;
-	  z-index: 2;
 	}
+	.compact .dot   { opacity: 1; }
+	.compact .ng    { transform: translateX(0); margin-right: 0; }
+	.compact .uyen  { opacity: 0; transform: translateX(0); margin-left: 0; }
+	.expanded .dot  { opacity: 0; }
+	.expanded .ng   { transform: translateX(0.1em); margin-right: -0.1em; }
+	.expanded .uyen { opacity: 1; transform: translateX(0.25em); margin-left: -0.05em; }
 
-	.name::after {
-	  content: "";
-	  position: absolute;
-	  top: -6px;
-	  left: -6px;
-	  right: -6px;
-	  bottom: -6px;
-	  border: 2px solid transparent;
-	  border-radius: 6px;
-	  pointer-events: none;
-	  transition: border-color 0.3s ease, background-color 0.3s ease;
-	  background-color: transparent;
-	  z-index: 1;
-	}
+	html.allow-hover .name:not(.frozen):hover { transform: scale(1.3); }
+	html.allow-hover .name.compact:not(.frozen):hover .dot   { opacity: 0; }
+	html.allow-hover .name.compact:not(.frozen):hover .ng    { transform: translateX(0.1em); margin-right: -0.1em; }
+	html.allow-hover .name.compact:not(.frozen):hover .uyen  { opacity: 1; transform: translateX(0.25em); margin-left: -0.05em; }
+	html.allow-hover .name.expanded:not(.frozen):hover .dot  { opacity: 1; }
+	html.allow-hover .name.expanded:not(.frozen):hover .ng   { transform: translateX(0); margin-right: 0; }
+	html.allow-hover .name.expanded:not(.frozen):hover .uyen { opacity: 0; transform: translateX(0); margin-left: 0; }
 
-	/* BASE STATES */
-	.compact .dot {
-	  opacity: 1;
-	}
-	.compact .ng {
-	  transform: translateX(0);
-	  margin-right: 0;
-	}
-	.compact .uyen {
-	  opacity: 0;
-	  transform: translateX(0);
-	  margin-left: 0;
-	}
-
-	.expanded .dot {
-	  opacity: 0;
-	}
-	.expanded .ng {
-	  transform: translateX(0.1em);
-	  margin-right: -0.1em;
-	}
-	.expanded .uyen {
-	  opacity: 1;
-	  transform: translateX(0.25em);
-	  margin-left: -0.05em;
-	}
-
-	/* HOVER PREVIEW (ONLY if allow-hover exists) */
-	html.allow-hover .name:not(.frozen):hover {
-	  transform: scale(1.05);
-	}
-	html.allow-hover .name:not(.frozen):hover::after {
-	  border-color: rgba(53, 41, 35, 0.5);
-	  background-color: rgba(131, 121, 110, 0.15);
-	}
-
-	html.allow-hover .name:not(.frozen).compact:hover .dot {
-	  opacity: 0;
-	}
-	html.allow-hover .name:not(.frozen).compact:hover .ng {
-	  transform: translateX(0.1em);
-	  margin-right: -0.1em;
-	}
-	html.allow-hover .name:not(.frozen).compact:hover .uyen {
-	  opacity: 1;
-	  transform: translateX(0.25em);
-	  margin-left: -0.05em;
-	}
-
-	html.allow-hover .name:not(.frozen).expanded:hover .dot {
-	  opacity: 1;
-	}
-	html.allow-hover .name:not(.frozen).expanded:hover .ng {
-	  transform: translateX(0);
-	  margin-right: 0;
-	}
-	html.allow-hover .name:not(.frozen).expanded:hover .uyen {
-	  opacity: 0;
-	  transform: translateX(0);
-	  margin-left: 0;
-	}
-
-	/* FROZEN AFTER CLICK */
-	.name.frozen {
-	  transform: scale(1);
-	  cursor: default;
-	}
-
-	.name.frozen::after {
-	  border-color: transparent;
-	  background-color: transparent;
-	}
-
-	/* CLICK BOUNCE */
-	.name.clicked {
-	  animation: clickScale 0.2s ease;
-	}
-	@keyframes clickScale {
-	  0% { transform: scale(1); }
-	  50% { transform: scale(0.95); }
-	  100% { transform: scale(1); }
-	}
-
-	/* Single Opacity Pulse */
-	.name.pulse {
-	  animation: pulseOnce 0.2s ease;
-	}
-	@keyframes pulseOnce {
-	  0% { opacity: 1;}
-	  50% { opacity: 0.8; transform: scale(0.96);}
-	  100% { opacity: 1; }
-	}
+	.name.frozen { transform: scale(1); cursor: default; }
+	.name.clicked-fine { transform-origin: center; animation: clickScaleFine 0.0s ease; }
+	.name.clicked-coarse { transform-origin: center; animation: clickScaleCoarse 0.0s ease; }
+	@keyframes clickScaleFine { 0%,100%{transform:scale(1)}50%{transform:scale(0.95)} }
+	@keyframes clickScaleCoarse {0%,100%{transform:scale(1)}50%{transform:scale(0.92)}}
+	.name.pulse { transform-origin: center; animation: pulseOnce 0.2s ease; }
+	@keyframes pulseOnce { 0%{opacity:1}50%{opacity:0.8;transform:scale(0.95)}100%{opacity:1} }
   </style>
 </head>
 <body>
 
 <h1>Hover & Click the Name Below 👇</h1>
+<h2>or <a href="portfolio-html.html" style="all:unset; color: blue;">go back</a></h2>
 
-<p class="name compact" tabindex="0">
-  <span class="first">jayden</span>
-  <span class="dot">.</span>
-  <span class="ng">ng</span>
-  <span class="uyen">uyen</span>
-</p>
+<div class="wrapper">
+  <div class="border-fake"></div>
+  <p class="name compact" tabindex="0">
+	<span class="first">jayden</span>
+	<span class="dot">.</span>
+	<span class="ng">ng</span>
+	<span class="uyen">uyen</span>
+  </p>
+</div>
 
 <script>
-const nameEl = document.querySelector('.name');
+const nameEl  = document.querySelector('.name');
+const border  = document.querySelector('.border-fake');
+const isFine  = window.matchMedia('(pointer: fine)').matches;
+let hasJustFrozen = false;
+let currentRealSize = { width: 0, height: 0 };
 
-// Detect pointer type
-const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+if (isFine) document.documentElement.classList.add('allow-hover');
 
-// Dynamically control whether we allow hover styles
-if (isFinePointer) {
-  document.documentElement.classList.add('allow-hover');
-} else {
-  document.documentElement.classList.remove('allow-hover');
+function measure(state) {
+  const clone = nameEl.cloneNode(true);
+  clone.style.visibility = 'hidden';
+  clone.style.position = 'absolute';
+  clone.style.top = '-9999px';
+  clone.style.left = '-9999px';
+  clone.classList.remove('compact', 'expanded');
+  clone.classList.add(state);
+
+  if (state === 'compact') {
+	const u = clone.querySelector('.uyen');
+	if (u) u.remove();
+  }
+
+  document.body.appendChild(clone);
+  const r = clone.getBoundingClientRect();
+  document.body.removeChild(clone);
+
+  let width = r.width;
+  let height = r.height;
+
+  if (state === 'compact') {
+	width *= 0.98; // <--- subtract 1px to fix slight oversize
+  }
+  
+  if (state === 'expanded') {
+	  width *= 1.02; // <--- subtract 1px to fix slight oversize
+	}
+
+  return { width, height };
 }
 
-let hasJustFrozen = false;
+function setBorderSize({width, height}) {
+  border.style.width = width + 'px';
+  border.style.height = height + 'px';
+}
+
+function previewBorder(state) {
+  const { width, height } = measure(state);
+
+  // 1. Instantly remove transitions
+  border.style.transition = 'none';
+  setBorderSize(currentRealSize); // reset to real size
+
+  void border.offsetWidth; // force browser to flush styles
+  
+  // 2. Now re-enable transitions
+  border.style.transition = 'opacity 0.25s ease, width 0.25s ease, height 0.25s ease';
+  setBorderSize({ width, height });
+  border.classList.add('active');
+}
+
+function updateCurrentRealSize() {
+  const realState = nameEl.classList.contains('compact') ? 'compact' : 'expanded';
+  currentRealSize = measure(realState);
+}
 
 nameEl.addEventListener('mouseenter', () => {
-  // No special hover logic here
+  if (!isFine || nameEl.classList.contains('frozen')) return;
+  updateCurrentRealSize(); // get real size before hover
+  const previewState = nameEl.classList.contains('compact') ? 'expanded' : 'compact';
+  previewBorder(previewState);
 });
 
 nameEl.addEventListener('mouseleave', () => {
-  if (isFinePointer) {
-	nameEl.classList.remove('frozen');
-	hasJustFrozen = false;
-  }
+  if (!isFine) return;
+  border.classList.remove('active');
+  nameEl.classList.remove('frozen');
+  hasJustFrozen = false;
 });
 
 nameEl.addEventListener('click', () => {
-  if (isFinePointer) {
+  if (isFine) {
 	if (!nameEl.classList.contains('frozen')) {
 	  nameEl.classList.add('frozen');
-
-	  if (nameEl.classList.contains('compact')) {
-		nameEl.classList.remove('compact');
-		nameEl.classList.add('expanded');
-	  } else {
-		nameEl.classList.remove('expanded');
-		nameEl.classList.add('compact');
-	  }
-
-	  nameEl.classList.add('clicked');
+	  nameEl.classList.toggle('compact');
+	  nameEl.classList.toggle('expanded');
+	  border.classList.remove('active');
+	  nameEl.classList.add('clicked-fine');
 	  nameEl.addEventListener('animationend', () => {
-		nameEl.classList.remove('clicked');
+		nameEl.classList.remove('clicked-fine');
 	  }, { once: true });
-
 	  hasJustFrozen = true;
-	} else {
-	  // Frozen click triggers pulse fun
-	  if (hasJustFrozen) {
-		nameEl.classList.add('pulse');
-		nameEl.addEventListener('animationend', () => {
-		  nameEl.classList.remove('pulse');
-		}, { once: true });
-	  }
+	} else if (hasJustFrozen) {
+	  nameEl.classList.add('pulse');
+	  nameEl.addEventListener('animationend', () => {
+		nameEl.classList.remove('pulse');
+	  }, { once: true });
 	}
   } else {
-	// Touch mode: no frozen logic, just toggle
-	if (nameEl.classList.contains('compact')) {
-	  nameEl.classList.remove('compact');
-	  nameEl.classList.add('expanded');
-	} else {
-	  nameEl.classList.remove('expanded');
-	  nameEl.classList.add('compact');
-	}
-
-	nameEl.classList.add('clicked');
+	nameEl.classList.toggle('compact');
+	nameEl.classList.toggle('expanded');
+	nameEl.classList.add('clicked-coarse');
 	nameEl.addEventListener('animationend', () => {
-	  nameEl.classList.remove('clicked');
+	  nameEl.classList.remove('clicked-coarse');
 	}, { once: true });
   }
 });
