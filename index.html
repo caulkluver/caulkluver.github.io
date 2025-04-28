@@ -1,160 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Jayden Name Animation – Perfect Fake Border</title>
-  <style>
-    body {
-      background: #f5f1eb;
-      font-family: ui-sans-serif, -apple-system, 'Helvetica Neue', BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      padding: 2rem;
-      color: #352923;
-      user-select: none;
-    }
-    .wrapper {
-      display: inline-block;
-      position: relative;
-    }
-    .border-fake {
-      position: absolute;
-      top: 0; left: 0;
-      box-sizing: border-box;
-      border: 2px solid rgba(53,41,35,0.5);
-      border-radius: 6px;
-      background-color: rgba(131,121,110,0.15);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease;
-    }
-    .border-fake.active {
-      opacity: 1;
-    }
-    .name {
-      margin: 0;
-      display: inline-flex;
-      align-items: center;
-      font-size: 2rem;
-      font-weight: bold;
-      padding: 0.2em 0.4em;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .name span {
-      display: inline-block;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    .compact .dot   { opacity: 1; }
-    .compact .ng    { transform: translateX(0);     margin-right: 0; }
-    .compact .uyen  { opacity: 0; transform: translateX(0); margin-left: 0; }
-    .expanded .dot  { opacity: 0; }
-    .expanded .ng   { transform: translateX(0.1em);  margin-right: -0.1em; }
-    .expanded .uyen { opacity: 1; transform: translateX(0.25em); margin-left: -0.05em; }
-    html.allow-hover .name:not(.frozen):hover { transform: scale(1.05); }
-    html.allow-hover .name.compact:not(.frozen):hover .dot   { opacity: 0; }
-    html.allow-hover .name.compact:not(.frozen):hover .ng    { transform: translateX(0.1em);  margin-right: -0.1em; }
-    html.allow-hover .name.compact:not(.frozen):hover .uyen  { opacity: 1; transform: translateX(0.25em); margin-left: -0.05em; }
-    html.allow-hover .name.expanded:not(.frozen):hover .dot  { opacity: 1; }
-    html.allow-hover .name.expanded:not(.frozen):hover .ng   { transform: translateX(0);      margin-right: 0; }
-    html.allow-hover .name.expanded:not(.frozen):hover .uyen { opacity: 0; transform: translateX(0);      margin-left: 0; }
-    .name.frozen { transform: scale(1); cursor: default; }
-    .name.clicked-fine   { animation: clickScaleFine 0.2s ease; }
-    .name.clicked-coarse { animation: clickScaleCoarse 0.25s ease; }
-    @keyframes clickScaleFine   { 0%,100%{transform:scale(1)}50%{transform:scale(0.95)} }
-    @keyframes clickScaleCoarse { 0%,100%{transform:scale(1)}50%{transform:scale(0.92)} }
-    .name.pulse { animation: pulseOnce 0.2s ease; }
-    @keyframes pulseOnce { 0%{opacity:1}50%{opacity:0.8;transform:scale(0.95)}100%{opacity:1} }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jayden.ng</title>
+    <style>
+        @font-face {
+            font-family: 'HelveticaBold';
+            src: url('fonts/bold.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'HelveticaMedium';
+            src: url('fonts/medium.ttf') format('truetype');
+        }
+        
+        body {
+            margin: 0;
+            background-color: #08030A;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 100vh;
+            width: 100vw;   
+            overflow: hidden;
+            position: relative;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .header-container {
+            position: fixed;
+            top: 5px;
+            left: 0;
+            width: 100%;
+            background-color: #08030A;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 10;
+        }
+
+        .header {
+            font-family: 'HelveticaBold', sans-serif;
+            font-size: min(3.5vw, 26px);
+            color: #F2EDEA;
+            white-space: nowrap;
+            padding-left: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .header span {
+            font-family: 'HelveticaMedium', sans-serif;
+            color: #bfbfbf;
+            font-size: min(3.2vw, 18px);
+            letter-spacing: -0.5px;
+        }
+
+        .image-container {
+            position: absolute;
+            top: calc(min(4vw, 24px) + 5px);
+            left: 0;
+            width: 100%;
+            height: calc(100vh - min(4vw, 24px));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        img {
+            height: 100%;
+            width: auto;
+            display: block;
+            margin: 0 auto;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        a {
+            all: unset;
+        }
+    </style>
+    
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
+    <div class="header-container">
+        <div class="header">NATURAL SELECTION (2023) <span>by <a href="portfolio-html.html">Jayden Nguyen</a></span></div>
+    </div>
+    <div class="image-container">
+        <img id="artwork" src="pics/finalalways_lowres.jpg" alt="NATURAL SELECTION (2023) by Jayden Nguyen">
+    </div>
 
-  <h1>Hover & Click the Name Below 👇</h1>
-
-  <div class="wrapper">
-    <div class="border-fake"></div>
-    <p class="name compact" tabindex="0">
-      <span class="first">jayden</span>
-      <span class="dot">.</span>
-      <span class="ng">ng</span>
-      <span class="uyen">uyen</span>
-    </p>
-  </div>
-
-  <script>
-    const nameEl  = document.querySelector('.name');
-    const border  = document.querySelector('.border-fake');
-    const isFine  = window.matchMedia('(pointer: fine)').matches;
-    let hasJustFrozen = false;
-
-    if (isFine) document.documentElement.classList.add('allow-hover');
-
-    function measure(state) {
-      const clone = nameEl.cloneNode(true);
-      clone.style.visibility = 'hidden';
-      clone.style.position   = 'absolute';
-      clone.style.top        = '-9999px';
-      clone.classList.remove('compact','expanded');
-      clone.classList.add(state);
-
-      // hide the extra part for compact so it doesn't add width
-      if (state === 'compact') {
-        const u = clone.querySelector('.uyen');
-        if (u) u.style.display = 'none';
-      }
-
-      document.body.appendChild(clone);
-      const r = clone.getBoundingClientRect();
-      document.body.removeChild(clone);
-      return { width: r.width, height: r.height };
-    }
-
-    function previewBorder(state) {
-      const { width, height } = measure(state);
-      border.style.width  = width  + 'px';
-      border.style.height = height + 'px';
-      border.classList.add('active');
-    }
-
-    nameEl.addEventListener('mouseenter', () => {
-      if (!isFine || nameEl.classList.contains('frozen')) return;
-      // preview the *other* state
-      previewBorder(nameEl.classList.contains('compact') ? 'expanded' : 'compact');
-    });
-
-    nameEl.addEventListener('mouseleave', () => {
-      if (!isFine) return;
-      border.classList.remove('active');
-      nameEl.classList.remove('frozen');
-      hasJustFrozen = false;
-    });
-
-    nameEl.addEventListener('click', () => {
-      if (isFine) {
-        if (!nameEl.classList.contains('frozen')) {
-          nameEl.classList.add('frozen');
-          nameEl.classList.toggle('compact');
-          nameEl.classList.toggle('expanded');
-          // **hide** the border after click
-          border.classList.remove('active');
-
-          nameEl.classList.add('clicked-fine');
-          nameEl.addEventListener('animationend', () => nameEl.classList.remove('clicked-fine'), { once:true });
-          hasJustFrozen = true;
-        } else if (hasJustFrozen) {
-          nameEl.classList.add('pulse');
-          nameEl.addEventListener('animationend', () => nameEl.classList.remove('pulse'), { once:true });
+    <script>
+        function forceReflow() {
+            const header = document.querySelector('.header-container');
+            header.style.visibility = 'hidden';
+            header.offsetHeight;
+            header.style.visibility = 'visible';
         }
-      } else {
-        // mobile: just toggle
-        nameEl.classList.toggle('compact');
-        nameEl.classList.toggle('expanded');
-        nameEl.classList.add('clicked-coarse');
-        nameEl.addEventListener('animationend', () => nameEl.classList.remove('clicked-coarse'), { once:true });
-      }
-    });
-  </script>
 
+        function swapToHighRes() {
+            const img = document.getElementById('artwork');
+            const highResSrc = 'pics/finalalways.jpg';
+            
+            const highResImage = new Image();
+            highResImage.src = highResSrc;
+            highResImage.onload = function() {
+                img.src = highResSrc;
+                // setTimeout(() => {
+                //     img.src = highResSrc;
+                // }, 2000); // Switch to high-res after 2 seconds
+            };
+        }
+        
+        window.addEventListener('resize', forceReflow);
+        swapToHighRes();
+    </script>
 </body>
 </html>
